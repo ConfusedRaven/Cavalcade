@@ -34,6 +34,5 @@ layer_0/tile_data = PackedInt32Array(-1, 2228226, 20, 65535, 2228226, 21, -65536
 
 [node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2(256, 144)
-current = true
 limit_left = 0
 limit_smoothed = true
