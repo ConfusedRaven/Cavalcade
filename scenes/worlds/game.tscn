@@ -28,9 +28,10 @@ layer_0/tile_data = PackedInt32Array(0, 262146, 25, 65536, 262146, 26, 131072, 6
 position = Vector2(128, 144)
 
 [node name="Cavalcade" parent="." instance=ExtResource("3_3su7w")]
+visible = false
 position = Vector2(96, 144)
 
-[node name="MainCamera" type="Camera2D" parent="."]
-position = Vector2(256, 144)
+[node name="MainCamera" type="Camera2D" parent="Cavalcade"]
+position = Vector2(160, 0)
 limit_left = 0
 limit_smoothed = true

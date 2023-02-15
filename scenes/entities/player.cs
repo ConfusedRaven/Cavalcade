@@ -1,45 +1,37 @@
 using Godot;
-using System;
 
 public partial class player : Area2D
 {
-	[Export]
-	public int Speed = 400; // How fast the player will move (pixels/sec).
-
-	public Vector2 ScreenSize; // Size of the game window.
+	[Signal]
+	public delegate void HitEventHandler();
 	
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
+
+	[Export] public string Class ="Squire"; // Which character model to use.
+	
+	private void Start(Vector2 pos)
 	{
-		ScreenSize = GetViewportRect().Size;
+		Position = pos;
+		Show();
+		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void _move_with_time()
 	{
-		var velocity = Vector2.Zero; // The player's movement vector.
+		var velocity = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
-		if (Input.IsActionPressed("move_right"))
+		var animatedSprite2D = GetNode<AnimatedSprite2D>(Class);
+		var classes = GetChildren(true);
+
+		foreach (var sprite in classes)
 		{
-			velocity.X += 1;
+			if (sprite is Node2D sprite2D)
+			{
+				if (sprite2D.Name == Class)
+					sprite2D.Visible = true;
+				else
+					sprite2D.Visible = false;
+			}
 		}
-
-		if (Input.IsActionPressed("move_left"))
-		{
-			velocity.X -= 1;
-		}
-
-		if (Input.IsActionPressed("move_down"))
-		{
-			velocity.Y += 1;
-		}
-
-		if (Input.IsActionPressed("move_up"))
-		{
-			velocity.Y -= 1;
-		}
-
-		var animatedSprite2D = GetNode<AnimatedSprite2D>("Base Player");
 
 		if (velocity.Length() > 0)
 		{
@@ -50,10 +42,28 @@ public partial class player : Area2D
 		{
 			animatedSprite2D.Stop();
 		}
-		Position += velocity * (float)delta;
-		Position = new Vector2(
-			x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
-			y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
-		);
+
+		if (velocity.X != 0)
+		{
+			animatedSprite2D.Animation = "walk";
+			animatedSprite2D.FlipH = velocity.X < 0;
+		}
+		else if (velocity.Y < 0)
+		{
+			animatedSprite2D.Animation = "up";
+		}
+		else if (velocity.Y > 0)
+		{
+			animatedSprite2D.Animation = "walk";
+		}
+		
+		Position += velocity;
 	}
+	private void _on_body_entered(PhysicsBody2D body)
+	{
+		Hide();
+		EmitSignal(SignalName.Hit);
+		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
+	}
+	
 }
