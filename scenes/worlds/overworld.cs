@@ -2,9 +2,11 @@ using Godot;
 
 public partial class overworld : TileMap
 {
+	[Export] private Area2D _cavalcade;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

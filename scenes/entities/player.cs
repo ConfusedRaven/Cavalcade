@@ -4,17 +4,18 @@ public partial class player : Area2D
 {
 	[Signal]
 	public delegate void HitEventHandler();
-	
+
+	[Export] public string Class = "Squire"; // Which character model to use.
+
 	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
 
-	[Export] public string Class ="Squire"; // Which character model to use.
-	
 	private void Start(Vector2 pos)
 	{
 		Position = pos;
 		Show();
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
 	}
+
 	private void _move_with_time()
 	{
 		var velocity = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -23,7 +24,6 @@ public partial class player : Area2D
 		var classes = GetChildren(true);
 
 		foreach (var sprite in classes)
-		{
 			if (sprite is Node2D sprite2D)
 			{
 				if (sprite2D.Name == Class)
@@ -31,7 +31,6 @@ public partial class player : Area2D
 				else
 					sprite2D.Visible = false;
 			}
-		}
 
 		if (velocity.Length() > 0)
 		{
@@ -56,14 +55,14 @@ public partial class player : Area2D
 		{
 			animatedSprite2D.Animation = "walk";
 		}
-		
+
 		Position += velocity;
 	}
+
 	private void _on_body_entered(PhysicsBody2D body)
 	{
 		Hide();
 		EmitSignal(SignalName.Hit);
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
 	}
-	
 }
