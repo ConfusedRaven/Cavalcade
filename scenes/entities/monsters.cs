@@ -3,6 +3,7 @@ using Godot;
 public partial class monsters : Node
 {
 	private string _zombie = "Zombie4"; // Which character model to use.
+	
 	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
 
 	// Called when the node enters the scene tree for the first time.

@@ -48,26 +48,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fy0y"]
-size = Vector2(32, 16)
+size = Vector2(48, 26)
 
 [node name="Cavalcade" type="Area2D"]
 script = ExtResource("1_fq8p0")
 metadata/_edit_group_ = true
 
 [node name="Horse" type="AnimatedSprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.3, 1.3)
 sprite_frames = SubResource("SpriteFrames_dgh2m")
 animation = &"walk"
 
 [node name="Wagon" type="AnimatedSprite2D" parent="Horse"]
-position = Vector2(-16, 0)
+position = Vector2(-18, -2.5)
+scale = Vector2(1.3, 1.3)
 sprite_frames = SubResource("SpriteFrames_iqhhq")
 animation = &"drive"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-12, 3.57628e-07)
-scale = Vector2(1.5, 1.5)
+position = Vector2(-13, -2)
 shape = SubResource("RectangleShape2D_8fy0y")
 
 [node name="MovementTimer" type="Timer" parent="."]

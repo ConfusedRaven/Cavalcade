@@ -2,13 +2,12 @@ using Godot;
 
 public partial class player : Area2D
 {
-	[Signal]
-	public delegate void HitEventHandler();
+	[Signal] public delegate void HitEventHandler();
 
 	[Export] public string Class = "Squire"; // Which character model to use.
 
 	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
-
+	
 	private void Start(Vector2 pos)
 	{
 		Position = pos;

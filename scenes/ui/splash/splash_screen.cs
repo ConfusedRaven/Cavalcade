@@ -1,17 +1,15 @@
 using Godot;
+using System;
 
-public partial class overworld : Node2D
+public partial class splash_screen : Control
 {
-	[Export] public PackedScene MonsterScene;
-	
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
-		GetNode<Area2D>("Cavalcade/Player").Visible = false;
 		var anim = GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Play("cavalcade_move");
+		anim.Play("fade_out");
 		await ToSignal(anim, "animation_finished");
-		GetNode<Area2D>("Cavalcade/Player").Visible = true;
+		GD.Load("res://scenes/main.tscn");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
