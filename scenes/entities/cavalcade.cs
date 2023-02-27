@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class cavalcade : Area2D
+public partial class cavalcade : StaticBody2D
 {
 	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
 

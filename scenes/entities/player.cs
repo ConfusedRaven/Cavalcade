@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class player : Area2D
+public partial class player : CharacterBody2D
 {
 	[Signal] public delegate void HitEventHandler();
 
@@ -8,16 +8,9 @@ public partial class player : Area2D
 
 	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
 	
-	private void Start(Vector2 pos)
-	{
-		Position = pos;
-		Show();
-		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
-	}
-
 	private void _move_with_time()
 	{
-		var velocity = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+		Velocity = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
 		var animatedSprite2D = GetNode<AnimatedSprite2D>(Class);
 		var classes = GetChildren(true);
@@ -31,9 +24,9 @@ public partial class player : Area2D
 					sprite2D.Visible = false;
 			}
 
-		if (velocity.Length() > 0)
+		if (Velocity.Length() > 0)
 		{
-			velocity = velocity.Normalized() * Speed;
+			Velocity = Velocity.Normalized() * Speed;
 			animatedSprite2D.Play();
 		}
 		else
@@ -41,21 +34,21 @@ public partial class player : Area2D
 			animatedSprite2D.Stop();
 		}
 
-		if (velocity.X != 0)
+		if (Velocity.X != 0)
 		{
 			animatedSprite2D.Animation = "walk";
-			animatedSprite2D.FlipH = velocity.X < 0;
+			animatedSprite2D.FlipH = Velocity.X < 0;
 		}
-		else if (velocity.Y < 0)
+		else if (Velocity.Y < 0)
 		{
 			animatedSprite2D.Animation = "up";
 		}
-		else if (velocity.Y > 0)
+		else if (Velocity.Y > 0)
 		{
 			animatedSprite2D.Animation = "walk";
 		}
 
-		Position += velocity;
+		MoveAndCollide(Velocity);
 	}
 
 	private void _on_body_entered(PhysicsBody2D body)

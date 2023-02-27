@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpbc36u04nt2j"]
+[gd_scene load_steps=7 format=3 uid="uid://dpbc36u04nt2j"]
 
 [ext_resource type="Script" path="res://scenes/main.cs" id="1_vqx1n"]
 [ext_resource type="PackedScene" uid="uid://c242d2o2fkegb" path="res://scenes/worlds/game.tscn" id="2_bhcqr"]
+[ext_resource type="Texture2D" uid="uid://cj3shrt5hjaht" path="res://assets/sprites/ui/main_menu/logo.png" id="3_k5j4p"]
 
 [sub_resource type="Animation" id="Animation_1us0l"]
 resource_name = "fade_in"
-length = 5.0
+length = 6.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,9 +19,37 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_wqf3l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l75m2"]
 _data = {
+"RESET": SubResource("Animation_wqf3l"),
 "fade_in": SubResource("Animation_1us0l")
 }
 
@@ -40,7 +69,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0)
 
 [node name="Game" parent="." instance=ExtResource("2_bhcqr")]
 position = Vector2(-8, 39)
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(216, 121)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_k5j4p")
