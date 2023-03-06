@@ -9,7 +9,8 @@ public partial class splash_screen : Control
 		var anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("fade_out");
 		await ToSignal(anim, "animation_finished");
-		GD.Load("res://scenes/main.tscn");
+		
+		GetTree().ChangeSceneToFile("res://scenes/ui/main_menu/main_menu.tscn");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

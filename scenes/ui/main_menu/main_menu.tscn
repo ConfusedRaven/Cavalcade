@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://dlx7wkl2iculi"]
+[gd_scene load_steps=4 format=3 uid="uid://dlx7wkl2iculi"]
+
+[ext_resource type="Script" path="res://scenes/ui/main_menu/main_menu.cs" id="1_61ho4"]
+[ext_resource type="Texture2D" uid="uid://3qexi8k3wlyw" path="res://assets/sprites/ui/main_menu/background.png" id="1_t3qd5"]
+[ext_resource type="Texture2D" uid="uid://cj3shrt5hjaht" path="res://assets/sprites/ui/main_menu/logo.png" id="2_16i1i"]
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -7,3 +11,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_61ho4")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t3qd5")
+expand_mode = 3
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -301.0
+offset_top = 10.0
+offset_right = 311.0
+offset_bottom = 130.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(306, 60)
+texture = ExtResource("2_16i1i")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

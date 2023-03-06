@@ -9,7 +9,7 @@ public partial class overworld : Node2D
 	{
 		GetNode<player>("Cavalcade/Player").Visible = false;
 		var anim = GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Play("cavalcade_move");
+		anim.Play("start_game");
 		await ToSignal(anim, "animation_finished");
 		GetNode<player>("Cavalcade/Player").Visible = true;
 	}
