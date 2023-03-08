@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://yor6rwrqxq8n"]
+[gd_scene load_steps=6 format=3 uid="uid://0bimvi8ujgos"]
 
-[ext_resource type="Script" path="res://scenes/ui/splash/splash_screen.cs" id="1_5f5g5"]
+[ext_resource type="Script" path="res://scripts/splash_screen.cs" id="1_jb40t"]
 [ext_resource type="Texture2D" uid="uid://dqh71o5s0lx71" path="res://assets/sprites/ui/splash/godot_logo_large_color_dark.png" id="2_ao8ea"]
 [ext_resource type="Texture2D" uid="uid://m7fhd1ikx7do" path="res://assets/sprites/ui/splash/logoipsum.png" id="3_j523s"]
 
@@ -60,7 +60,7 @@ offset_right = 4.0
 offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5f5g5")
+script = ExtResource("1_jb40t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../CanvasLayer/ColorRect")
@@ -70,6 +70,7 @@ libraries = {
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 texture_filter = 2
+layout_mode = 0
 offset_left = -40.0
 offset_top = -50.0
 offset_right = 93.0

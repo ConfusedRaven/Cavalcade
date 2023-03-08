@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://i10vn5u334eb"]
+[gd_scene load_steps=24 format=3 uid="uid://b735hejkjk1u7"]
 
+[ext_resource type="Script" path="res://scripts/monsters.cs" id="1_iuet6"]
 [ext_resource type="Texture2D" uid="uid://b0mkyr40qpkr8" path="res://assets/sprites/characters/rougelike/enemy_char_transparent.png" id="1_mnn0m"]
-[ext_resource type="Script" path="res://scenes/entities/monsters.cs" id="1_srd5s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffp7e"]
 atlas = ExtResource("1_mnn0m")
@@ -173,7 +173,7 @@ size = Vector2(19, 17)
 [node name="Monsters" type="RigidBody2D"]
 collision_mask = 0
 gravity_scale = 0.0
-script = ExtResource("1_srd5s")
+script = ExtResource("1_iuet6")
 metadata/_edit_group_ = true
 
 [node name="Zombie1" type="AnimatedSprite2D" parent="."]
