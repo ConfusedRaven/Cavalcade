@@ -161,7 +161,6 @@ position = Vector2(192, 144)
 [node name="Player" parent="Cavalcade" instance=ExtResource("2_k0v1h")]
 y_sort_enabled = true
 position = Vector2(-12, 20)
-Speed = 0
 
 [node name="MainCamera" type="Camera2D" parent="Cavalcade"]
 limit_smoothed = true

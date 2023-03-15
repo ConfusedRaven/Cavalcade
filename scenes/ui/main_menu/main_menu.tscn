@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2mstqprjtmw0"]
+[gd_scene load_steps=12 format=3 uid="uid://b2mstqprjtmw0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.cs" id="1_c1h3t"]
 [ext_resource type="Texture2D" uid="uid://3qexi8k3wlyw" path="res://assets/sprites/ui/main_menu/background.png" id="1_t3qd5"]
 [ext_resource type="Texture2D" uid="uid://cj3shrt5hjaht" path="res://assets/sprites/ui/main_menu/logo.png" id="2_16i1i"]
 [ext_resource type="PackedScene" uid="uid://dh8yln8lji7v2" path="res://addons/UniversalFade/Fade.tscn" id="4_unihn"]
+[ext_resource type="Texture2D" uid="uid://bq710s4l5i537" path="res://assets/sprites/ui/main_menu/green.png" id="4_vs4ub"]
+[ext_resource type="Texture2D" uid="uid://db4dnxlt7upg2" path="res://assets/sprites/ui/main_menu/blue_pressed.png" id="5_qvg3j"]
+[ext_resource type="Texture2D" uid="uid://c56y2pj8mx413" path="res://assets/sprites/ui/main_menu/blue.png" id="6_5do7n"]
+[ext_resource type="FontFile" uid="uid://ymf0bw0nb5u1" path="res://assets/sprites/ui/main_menu/Kenney Future.ttf" id="8_mnn67"]
 
 [sub_resource type="Animation" id="Animation_fdvlb"]
 length = 0.001
@@ -80,22 +84,33 @@ scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(306, 60)
 texture = ExtResource("2_16i1i")
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.5
-offset_top = -15.5
-offset_right = 20.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Play"
+[node name="TextureButton" type="TextureButton" parent="."]
+texture_filter = 3
+clip_contents = true
+layout_mode = 0
+offset_left = 168.0
+offset_top = 104.0
+offset_right = 268.0
+offset_bottom = 144.0
+pivot_offset = Vector2(50, 20)
+texture_normal = ExtResource("4_vs4ub")
+texture_pressed = ExtResource("5_qvg3j")
+texture_hover = ExtResource("6_5do7n")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 102.0
+offset_bottom = 38.0
+theme_override_fonts/font = ExtResource("8_mnn67")
+theme_override_font_sizes/font_size = 22
+text = "PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Fade" parent="." instance=ExtResource("4_unihn")]
 visible = false
 
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="TextureButton" to="." method="_on_texture_button_button_up"]

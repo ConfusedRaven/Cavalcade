@@ -11,7 +11,7 @@ public partial class main_menu : Control
 		var anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("animate_ui");
 	}
-	private void _on_button_button_down()
+	private void _on_texture_button_button_up()
 	{
 		GetTree().ChangeSceneToFile("res://scenes/worlds/game.tscn");
 	}
