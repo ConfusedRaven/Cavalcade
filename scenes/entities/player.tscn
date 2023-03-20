@@ -1,7 +1,13 @@
-[gd_scene load_steps=49 format=3 uid="uid://du6cu7qwwgj0h"]
+[gd_scene load_steps=51 format=3 uid="uid://xhwl3vaqpdr0"]
 
 [ext_resource type="Script" path="res://scripts/player.cs" id="1_c2saf"]
 [ext_resource type="Texture2D" uid="uid://b3nni3p1uf5wo" path="res://assets/sprites/characters/rougelike/player_char_transparent.png" id="1_yte8m"]
+[ext_resource type="Shader" path="res://assets/shaders/vector_sprite_upscaler.gdshader" id="3_0xmqj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mogm0"]
+shader = ExtResource("3_0xmqj")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yuluc"]
 atlas = ExtResource("1_yte8m")
@@ -52,7 +58,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"up",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -69,7 +75,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 10.0
+"speed": 3.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88lpw"]
@@ -121,7 +127,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"up",
-"speed": 10.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -138,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 10.0
+"speed": 7.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uixv6"]
@@ -190,7 +196,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"up",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -207,7 +213,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 10.0
+"speed": 3.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jp0y8"]
@@ -259,7 +265,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"up",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -276,7 +282,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 10.0
+"speed": 3.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urkrf"]
@@ -328,7 +334,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"up",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -345,48 +351,46 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 10.0
+"speed": 3.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpav6"]
 size = Vector2(18, 24)
 
 [node name="Player" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_mogm0")
 script = ExtResource("1_c2saf")
 Class = "Knight"
 metadata/_edit_group_ = true
 
 [node name="Squire" type="AnimatedSprite2D" parent="."]
 visible = false
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_u6toj")
 animation = &"walk"
-frame = 3
-frame_progress = 0.162127
 
 [node name="Knight" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_3oi51")
 animation = &"walk"
-frame = 3
-frame_progress = 0.511311
 
 [node name="Sorcerer" type="AnimatedSprite2D" parent="."]
 visible = false
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_635ia")
 animation = &"walk"
-frame_progress = 0.377583
 
 [node name="Marksman" type="AnimatedSprite2D" parent="."]
 visible = false
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_3afoh")
 animation = &"walk"
-frame = 3
-frame_progress = 0.883307
 
 [node name="Shaman" type="AnimatedSprite2D" parent="."]
 visible = false
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_lunma")
 animation = &"walk"
-frame_progress = 0.684797
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wpav6")

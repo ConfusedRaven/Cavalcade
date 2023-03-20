@@ -1,7 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://ut6j1ttibgu2"]
+[gd_scene load_steps=13 format=3 uid="uid://ut6j1ttibgu2"]
 
 [ext_resource type="Script" path="res://scripts/cavalcade.cs" id="1_lynmy"]
 [ext_resource type="Texture2D" uid="uid://dkgdjqbgg2ajj" path="res://assets/sprites/characters/vehicles/vehical_chars_transperant.png" id="1_n5d2b"]
+[ext_resource type="Shader" path="res://assets/shaders/vector_sprite_upscaler.gdshader" id="2_2pbhx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d27gn"]
+shader = ExtResource("2_2pbhx")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bd3oy"]
 atlas = ExtResource("1_n5d2b")
@@ -54,15 +60,18 @@ size = Vector2(26, 16)
 size = Vector2(20, 14)
 
 [node name="Cavalcade" type="StaticBody2D"]
+material = SubResource("ShaderMaterial_d27gn")
 script = ExtResource("1_lynmy")
 metadata/_edit_group_ = true
 
 [node name="Horse" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 scale = Vector2(1.3, 1.3)
 sprite_frames = SubResource("SpriteFrames_dgh2m")
 animation = &"walk"
 
 [node name="Wagon" type="AnimatedSprite2D" parent="Horse"]
+use_parent_material = true
 position = Vector2(-18, -2.5)
 scale = Vector2(1.3, 1.3)
 sprite_frames = SubResource("SpriteFrames_iqhhq")

@@ -1,11 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://bed4ftn87loco"]
+[gd_scene load_steps=13 format=3 uid="uid://bed4ftn87loco"]
 
 [ext_resource type="Script" path="res://scripts/overworld.cs" id="1_s4juo"]
 [ext_resource type="TileSet" uid="uid://uahyeeie44dj" path="res://scenes/worlds/game.tres" id="1_ueeae"]
 [ext_resource type="PackedScene" uid="uid://b735hejkjk1u7" path="res://scenes/entities/monsters.tscn" id="2_8td6i"]
-[ext_resource type="PackedScene" uid="uid://du6cu7qwwgj0h" path="res://scenes/entities/player.tscn" id="2_k0v1h"]
-[ext_resource type="Texture2D" uid="uid://cj3shrt5hjaht" path="res://assets/sprites/ui/main_menu/logo.png" id="3_2ehdh"]
+[ext_resource type="PackedScene" uid="uid://xhwl3vaqpdr0" path="res://scenes/entities/player.tscn" id="2_k0v1h"]
 [ext_resource type="PackedScene" uid="uid://ut6j1ttibgu2" path="res://scenes/entities/cavalcade.tscn" id="3_3su7w"]
+[ext_resource type="Shader" path="res://assets/shaders/vector_sprite_upscaler.gdshader" id="3_wurdy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fcs6g"]
+shader = ExtResource("3_wurdy")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
 
 [sub_resource type="Animation" id="Animation_lk3nh"]
 resource_name = "start_game"
@@ -47,59 +52,10 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 16]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Logo:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 6.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ev1pa"]
 _data = {
 "start_game": SubResource("Animation_lk3nh")
-}
-
-[sub_resource type="Animation" id="Animation_5crqh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Logo:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(200, 96)]
-}
-
-[sub_resource type="Animation" id="Animation_4ckqr"]
-resource_name = "animate_ui"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Logo:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(200, 96), Vector2(200, 94), Vector2(200, 96)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_sfvcv"]
-_data = {
-"RESET": SubResource("Animation_5crqh"),
-"animate_ui": SubResource("Animation_4ckqr")
 }
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bcaoc"]
@@ -115,6 +71,7 @@ _data = {
 point_count = 2
 
 [node name="Game" type="Node2D"]
+material = SubResource("ShaderMaterial_fcs6g")
 script = ExtResource("1_s4juo")
 MonsterScene = ExtResource("2_8td6i")
 metadata/_edit_horizontal_guides_ = []
@@ -124,18 +81,6 @@ root_node = NodePath("../Cavalcade")
 libraries = {
 "": SubResource("AnimationLibrary_ev1pa")
 }
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_sfvcv")
-}
-
-[node name="Logo" type="Sprite2D" parent="."]
-top_level = true
-z_index = 1
-position = Vector2(200, 96)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_2ehdh")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -149,6 +94,7 @@ grow_vertical = 2
 color = Color(0.25098, 0.611765, 0.384314, 1)
 
 [node name="Overworld" type="TileMap" parent="."]
+use_parent_material = true
 tile_set = ExtResource("1_ueeae")
 format = 2
 layer_0/name = "Grass"
@@ -161,6 +107,7 @@ position = Vector2(192, 144)
 [node name="Player" parent="Cavalcade" instance=ExtResource("2_k0v1h")]
 y_sort_enabled = true
 position = Vector2(-12, 20)
+Speed = 0
 
 [node name="MainCamera" type="Camera2D" parent="Cavalcade"]
 limit_smoothed = true

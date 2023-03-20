@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctt8g27w12u2l"
-path="res://.godot/imported/GradientHorizontal.png-f4eb9b0388dd8c45558ad74d4b2d35c7.ctex"
+uid="uid://doa0fyng4vs7c"
+path="res://.godot/imported/blue_pressed2.png-88c23bd7ee84af4ef3f2f34d842fe0ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/UniversalFade/Patterns/GradientHorizontal.png"
-dest_files=["res://.godot/imported/GradientHorizontal.png-f4eb9b0388dd8c45558ad74d4b2d35c7.ctex"]
+source_file="res://assets/sprites/ui/main_menu/blue_pressed2.png"
+dest_files=["res://.godot/imported/blue_pressed2.png-88c23bd7ee84af4ef3f2f34d842fe0ef.ctex"]
 
 [params]
 

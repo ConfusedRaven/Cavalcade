@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1nex6wxbe8hf"
-path="res://.godot/imported/Diagonal.png-356ca26798abe0ab8f5ef500742481a3.ctex"
+uid="uid://ntjpputwcnnh"
+path="res://.godot/imported/green2.png-0609063b862edf526be005fa356cd1f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/UniversalFade/Patterns/Diagonal.png"
-dest_files=["res://.godot/imported/Diagonal.png-356ca26798abe0ab8f5ef500742481a3.ctex"]
+source_file="res://assets/sprites/ui/main_menu/green2.png"
+dest_files=["res://.godot/imported/green2.png-0609063b862edf526be005fa356cd1f4.ctex"]
 
 [params]
 
