@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bed4ftn87loco"]
+[gd_scene load_steps=15 format=3 uid="uid://bed4ftn87loco"]
 
 [ext_resource type="Script" path="res://scripts/overworld.cs" id="1_s4juo"]
 [ext_resource type="TileSet" uid="uid://uahyeeie44dj" path="res://scenes/worlds/game.tres" id="1_ueeae"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xhwl3vaqpdr0" path="res://scenes/entities/player.tscn" id="2_k0v1h"]
 [ext_resource type="PackedScene" uid="uid://ut6j1ttibgu2" path="res://scenes/entities/cavalcade.tscn" id="3_3su7w"]
 [ext_resource type="Shader" path="res://assets/shaders/vector_sprite_upscaler.gdshader" id="3_wurdy"]
+[ext_resource type="Shader" path="res://assets/shaders/color_palette.gdshader" id="4_5d8xl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcs6g"]
 shader = ExtResource("3_wurdy")
@@ -58,6 +59,18 @@ _data = {
 "start_game": SubResource("Animation_lk3nh")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pafyr"]
+shader = ExtResource("4_5d8xl")
+shader_parameter/color0 = Color(1, 0, 0, 1)
+shader_parameter/color1 = Color(1, 1, 0, 1)
+shader_parameter/color2 = Color(1, 0, 1, 1)
+shader_parameter/color3 = Color(0, 1, 0, 1)
+shader_parameter/color4 = Color(0, 1, 1, 1)
+shader_parameter/color5 = Color(0, 0, 1, 1)
+shader_parameter/color6 = Color(0.509804, 0.552941, 0.54902, 1)
+shader_parameter/color7 = Color(1, 1, 1, 1)
+shader_parameter/color8 = null
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bcaoc"]
 normal = Vector2(0, 1)
 
@@ -94,6 +107,7 @@ grow_vertical = 2
 color = Color(0.25098, 0.611765, 0.384314, 1)
 
 [node name="Overworld" type="TileMap" parent="."]
+material = SubResource("ShaderMaterial_pafyr")
 use_parent_material = true
 tile_set = ExtResource("1_ueeae")
 format = 2
@@ -102,7 +116,7 @@ layer_0/tile_data = PackedInt32Array(-6, 262146, 25, 65530, 65538, 26, 131066, 2
 
 [node name="Cavalcade" parent="." instance=ExtResource("3_3su7w")]
 y_sort_enabled = true
-position = Vector2(192, 144)
+position = Vector2(192, 152)
 
 [node name="Player" parent="Cavalcade" instance=ExtResource("2_k0v1h")]
 y_sort_enabled = true

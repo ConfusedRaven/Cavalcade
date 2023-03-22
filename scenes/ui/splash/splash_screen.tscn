@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://0bimvi8ujgos"]
+[gd_scene load_steps=8 format=3 uid="uid://0bimvi8ujgos"]
 
 [ext_resource type="Script" path="res://scripts/splash_screen.cs" id="1_jb40t"]
 [ext_resource type="Texture2D" uid="uid://dqh71o5s0lx71" path="res://assets/sprites/ui/splash/godot_logo_large_color_dark.png" id="2_ao8ea"]
-[ext_resource type="Texture2D" uid="uid://m7fhd1ikx7do" path="res://assets/sprites/ui/splash/logoipsum.png" id="3_j523s"]
+[ext_resource type="FontFile" uid="uid://ymf0bw0nb5u1" path="res://assets/sprites/ui/main_menu/Kenney Future.ttf" id="2_xfbnk"]
+[ext_resource type="Texture2D" uid="uid://h44qmgbfpkl8" path="res://assets/sprites/ui/splash/KENNY.png" id="4_n4lbx"]
 
 [sub_resource type="Animation" id="Animation_iol76"]
 resource_name = "fade_out"
@@ -34,7 +35,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../CanvasLayer2/Logoipsum:visible")
+tracks/2/path = NodePath("../../CanvasLayer2/KennyLogo:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -43,9 +44,49 @@ tracks/2/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../CanvasLayer2/Label2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../CanvasLayer2/Label3:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_5so3w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CanvasLayer2/Label3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vvyxk"]
 _data = {
+"RESET": SubResource("Animation_5so3w"),
 "fade_out": SubResource("Animation_iol76")
 }
 
@@ -68,20 +109,18 @@ libraries = {
 "": SubResource("AnimationLibrary_vvyxk")
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-texture_filter = 2
+[node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = -40.0
-offset_top = -50.0
-offset_right = 93.0
-offset_bottom = -10.0
-theme_override_font_sizes/normal_font_size = 18
-text = "Made with the
-"
-fit_content = true
+offset_left = -52.0
+offset_top = -49.0
+offset_right = 64.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("2_xfbnk")
+theme_override_font_sizes/font_size = 12
+text = "Made with the"
 
 [node name="GodotLogo" type="Sprite2D" parent="."]
-position = Vector2(-20, 0)
+position = Vector2(-36, -8)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_ao8ea")
 
@@ -106,12 +145,29 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Logoipsum" type="Sprite2D" parent="CanvasLayer2"]
+[node name="Label2" type="Label" parent="CanvasLayer2"]
+offset_left = 184.0
+offset_top = 72.0
+offset_right = 300.0
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("2_xfbnk")
+theme_override_font_sizes/font_size = 12
+text = "Made using"
+
+[node name="Label3" type="Label" parent="CanvasLayer2"]
+offset_left = 184.0
+offset_top = 152.0
+offset_right = 300.0
+offset_bottom = 178.0
+theme_override_fonts/font = ExtResource("2_xfbnk")
+theme_override_font_sizes/font_size = 12
+text = "Assets"
+
+[node name="KennyLogo" type="Sprite2D" parent="CanvasLayer2"]
 z_index = 2
 y_sort_enabled = true
-position = Vector2(236, 121)
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("3_j523s")
+position = Vector2(200, 121)
+texture = ExtResource("4_n4lbx")
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="."]
 layer = 3
@@ -122,4 +178,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 0.183333)
