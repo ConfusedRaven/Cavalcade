@@ -1,0 +1,151 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2xexcp2s2r58"]
+
+[ext_resource type="Shader" path="res://shaders/vector_sprite_upscaler.gdshader" id="1_clvmg"]
+[ext_resource type="Script" path="res://scripts/player_weapon.cs" id="1_n7tb4"]
+[ext_resource type="Texture2D" uid="uid://l2klr3lrc36m" path="res://assets/sprites/tiny_dungeon_weapons.png" id="2_18ipy"]
+
+[sub_resource type="Animation" id="Animation_0oyoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.57079]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6.31802, -7.06406e-07)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.57079]
+}
+
+[sub_resource type="Animation" id="Animation_sion8"]
+resource_name = "swing"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.785397, 2.35619]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, -5), Vector2(5, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9.5, -9.5), Vector2(9.75, 9.25)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.785398, 2.35619]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3tdw4"]
+_data = {
+"RESET": SubResource("Animation_0oyoq"),
+"swing": SubResource("Animation_sion8")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fggv"]
+shader = ExtResource("1_clvmg")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yieji"]
+atlas = ExtResource("2_18ipy")
+region = Rect2(38, 2, 8, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7joje"]
+size = Vector2(7.77817, 12.7279)
+
+[node name="PlayerWeapon" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_n7tb4")
+_activeWeapon = "Dagger"
+_activeWeaponAnimation = "swing"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Dagger")
+libraries = {
+"": SubResource("AnimationLibrary_3tdw4")
+}
+
+[node name="Dagger" type="Sprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_7fggv")
+rotation = 1.57079
+texture = SubResource("AtlasTexture_yieji")
+offset = Vector2(-0.149155, -6.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.31802, -7.06406e-07)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_7joje")

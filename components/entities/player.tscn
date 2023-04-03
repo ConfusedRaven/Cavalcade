@@ -1,0 +1,142 @@
+[gd_scene load_steps=16 format=3 uid="uid://bk3w2ve7dfauq"]
+
+[ext_resource type="Shader" path="res://shaders/vector_sprite_upscaler.gdshader" id="1_e8iqx"]
+[ext_resource type="Texture2D" uid="uid://bmkup361nj47v" path="res://assets/sprites/tiny_dungeon_characters.png" id="1_oxd3b"]
+[ext_resource type="Script" path="res://scripts/player.cs" id="1_ww2dm"]
+[ext_resource type="Shader" path="res://shaders/hurt.gdshader" id="3_igja3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_erq4f"]
+shader = ExtResource("1_e8iqx")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="Animation" id="Animation_5g8xf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_i4jme"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0872665, 0.0872665, -0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b4ui0"]
+_data = {
+"RESET": SubResource("Animation_5g8xf"),
+"walk": SubResource("Animation_i4jme")
+}
+
+[sub_resource type="Animation" id="Animation_dwh50"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Squire:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_o8hsg"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Squire:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6my27"]
+_data = {
+"RESET": SubResource("Animation_dwh50"),
+"hit": SubResource("Animation_o8hsg")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3q7rk"]
+shader = ExtResource("3_igja3")
+shader_parameter/active = true
+shader_parameter/tint = Color(1, 0.219608, 0.235294, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge2wp"]
+atlas = ExtResource("1_oxd3b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx70s"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6c03x"]
+size = Vector2(20, 19)
+
+[node name="Player" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_erq4f")
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_ww2dm")
+Speed = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Squire")
+libraries = {
+"": SubResource("AnimationLibrary_b4ui0")
+}
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6my27")
+}
+
+[node name="Squire" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3q7rk")
+use_parent_material = true
+texture = SubResource("AtlasTexture_ge2wp")
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_bx70s")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="HitBoxCollider" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6c03x")
+
+[node name="DPS" type="Timer" parent="."]
+autostart = true
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_exited" from="HitBox" to="." method="_on_hit_box_area_exited"]
+[connection signal="timeout" from="DPS" to="." method="_on_dps_timeout"]

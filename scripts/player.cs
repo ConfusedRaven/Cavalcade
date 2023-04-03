@@ -2,59 +2,61 @@ using Godot;
 
 public partial class player : CharacterBody2D
 {
-	[Signal] public delegate void HitEventHandler();
+	[Export] public int Speed = 16;
+	[Export] public static int Health = 11;
+	private int _doDamage = 0;
 
-	[Export] public string Class = "Squire"; // Which character model to use.
-
-	[Export] public int Speed = 16; // How fast the player will move (pixels/sec).
-	
-	private void _move_with_time()
+	public override void _Process(double delta)
 	{
+		if (Health <= 0)
+		{
+			GetTree().ChangeSceneToFile("res://scenes/ui/end_screen.tscn");
+		}
+	}
+	
+	public override void _PhysicsProcess(double delta)
+	{
+		var anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		// Get the input direction and handle the movement/deceleration.
 		Velocity = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-
-		var animatedSprite2D = GetNode<AnimatedSprite2D>(Class);
-		var classes = GetChildren(true);
-
-		foreach (var sprite in classes)
-			if (sprite is Node2D sprite2D)
-			{
-				if (sprite2D.Name == Class)
-					sprite2D.Visible = true;
-				else
-					sprite2D.Visible = false;
-			}
-
 		if (Velocity.Length() > 0)
 		{
 			Velocity = Velocity.Normalized() * Speed;
-			animatedSprite2D.Play();
+			anim.Play("walk");
 		}
 		else
 		{
-			animatedSprite2D.Stop();
+			anim.Play("RESET");
 		}
-
-		if (Velocity.X != 0)
-		{
-			animatedSprite2D.Animation = "walk";
-			animatedSprite2D.FlipH = Velocity.X < 0;
-		}
-		else if (Velocity.Y < 0)
-		{
-			animatedSprite2D.Animation = "up";
-		}
-		else if (Velocity.Y > 0)
-		{
-			animatedSprite2D.Animation = "walk";
-		}
-
 		MoveAndCollide(Velocity);
 	}
 
-	private void _on_body_entered(PhysicsBody2D body)
+	private void _on_hit_box_area_entered(CollisionObject2D hitBox)
 	{
-		Hide();
-		EmitSignal(SignalName.Hit);
-		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
+		string[] spawners = {"../../SpawnerLeft/MouseEnemy/HurtBox", "../../SpawnerRight/MouseEnemy/HurtBox", "../../SpawnerBottom/MouseEnemy/HurtBox"};
+		foreach (var hurtBox in spawners)
+		{
+			if (hitBox != GetNode<Area2D>(hurtBox)) return;
+			_doDamage = 1;
+		}
+	}
+	
+	private void _on_hit_box_area_exited(CollisionObject2D hitBox)
+	{
+		string[] spawners = {"../../SpawnerLeft/MouseEnemy/HurtBox", "../../SpawnerRight/MouseEnemy/HurtBox", "../../SpawnerBottom/MouseEnemy/HurtBox"};
+		foreach (var hurtBox in spawners)
+		{
+			if (hitBox != GetNode<Area2D>(hurtBox)) return;
+			_doDamage = 0;
+		}
+	}
+	
+	private async void _on_dps_timeout()
+	{
+		if (_doDamage != 1) return;
+		var eff = GetNode<AnimationPlayer>("EffectPlayer");
+		Health = Health - enemy.Damage;
+		eff.Play("hit");
+		await ToSignal(eff, "animation_finished");
 	}
 }

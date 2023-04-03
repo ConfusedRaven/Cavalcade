@@ -1,0 +1,242 @@
+[gd_scene load_steps=20 format=3 uid="uid://6g22g1bf4axo"]
+
+[ext_resource type="Shader" path="res://shaders/vector_sprite_upscaler.gdshader" id="1_t5g5e"]
+[ext_resource type="Script" path="res://scripts/enemy.cs" id="2_sxu2n"]
+[ext_resource type="Texture2D" uid="uid://ctfwf4a5evlb3" path="res://assets/sprites/tiny_dungeon_enemies.png" id="3_3rnpv"]
+[ext_resource type="Shader" path="res://shaders/hurt.gdshader" id="3_w76yg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2fdc"]
+shader = ExtResource("1_t5g5e")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="Animation" id="Animation_6re6u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BrownMouse:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GreyMouse:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../BrownMouse:use_parent_material")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../GreyMouse:use_parent_material")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4mqwx"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BrownMouse:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0872665, 0.0872665, -0.0872665]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GreyMouse:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0872665, 0.0872665, -0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lwxky"]
+_data = {
+"RESET": SubResource("Animation_6re6u"),
+"walk": SubResource("Animation_4mqwx")
+}
+
+[sub_resource type="Animation" id="Animation_hmte0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BrownMouse:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GreyMouse:use_parent_material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dx017"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BrownMouse:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GreyMouse:use_parent_material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qne2p"]
+_data = {
+"RESET": SubResource("Animation_hmte0"),
+"hit": SubResource("Animation_dx017")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1yfw"]
+shader = ExtResource("3_w76yg")
+shader_parameter/active = true
+shader_parameter/tint = Color(1, 0.254902, 0.266667, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chlhd"]
+atlas = ExtResource("3_3rnpv")
+region = Rect2(51, 17, 16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5aen"]
+shader = ExtResource("3_w76yg")
+shader_parameter/active = true
+shader_parameter/tint = Color(1, 0.254902, 0.266667, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nhpn"]
+atlas = ExtResource("3_3rnpv")
+region = Rect2(68, 17, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n0t3j"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83wd2"]
+size = Vector2(28, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qppj7"]
+size = Vector2(22, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2toi"]
+
+[node name="MouseEnemy" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_q2fdc")
+collision_mask = 6
+motion_mode = 1
+script = ExtResource("2_sxu2n")
+_skinOne = "BrownMouse"
+_skinTwo = "GreyMouse"
+_cavalcadePos = "../../Cavalcade"
+_playerPos = "../../Cavalcade/Player"
+_health = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../EnemyCollider")
+libraries = {
+"": SubResource("AnimationLibrary_lwxky")
+}
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qne2p")
+}
+
+[node name="BrownMouse" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_j1yfw")
+use_parent_material = true
+texture = SubResource("AtlasTexture_chlhd")
+
+[node name="GreyMouse" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_e5aen")
+use_parent_material = true
+texture = SubResource("AtlasTexture_0nhpn")
+
+[node name="EnemyCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n0t3j")
+
+[node name="TrackingArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="TrackingCollider" type="CollisionShape2D" parent="TrackingArea"]
+shape = SubResource("RectangleShape2D_83wd2")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 5
+
+[node name="HitBoxCollider" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_qppj7")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="HurtBoxCollider" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_r2toi")
+
+[connection signal="body_entered" from="TrackingArea" to="." method="_on_tracking_area_body_entered"]
+[connection signal="body_exited" from="TrackingArea" to="." method="_on_tracking_area_body_exited"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

@@ -1,0 +1,295 @@
+[gd_scene load_steps=27 format=3 uid="uid://b3e7qnhku26ss"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.cs" id="1_2bap4"]
+[ext_resource type="Shader" path="res://shaders/fade.gdshader" id="1_ayki5"]
+[ext_resource type="Texture2D" uid="uid://c81u1oar4ofc6" path="res://assets/ui/main_menu/background.png" id="3_8ue6j"]
+[ext_resource type="Texture2D" uid="uid://cj35tbr5gbsdq" path="res://assets/ui/main_menu/title.png" id="4_vsabo"]
+[ext_resource type="Shader" path="res://shaders/vector_sprite_upscaler.gdshader" id="5_wsg2o"]
+[ext_resource type="Texture2D" uid="uid://b3ckkoh1f4y1v" path="res://assets/sprites/vehical_chars.png" id="6_eu5gd"]
+[ext_resource type="Texture2D" uid="uid://bmkup361nj47v" path="res://assets/sprites/tiny_dungeon_characters.png" id="7_jgojy"]
+[ext_resource type="FontFile" uid="uid://crgladd0r0l55" path="res://assets/fonts/Kenney Future.ttf" id="8_6417k"]
+[ext_resource type="Texture2D" uid="uid://r0ta2xgukf1q" path="res://assets/ui/kenny_ui/individual/buttonLong_brown_pressed.png" id="10_fssts"]
+[ext_resource type="Texture2D" uid="uid://ddd13qyuqyl5l" path="res://assets/ui/kenny_ui/individual/buttonLong_brown.png" id="10_rx5ul"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ngpam"]
+shader = ExtResource("1_ayki5")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 10.0
+
+[sub_resource type="Animation" id="Animation_51vye"]
+resource_name = "animate_ui"
+length = 1.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.15, 0.17, 0.17, 0.15]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:anchor_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.15, 0.17, 0.17, 0.15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Horse:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.0872665, 0.0872665, -0.0872665, 0.0872665, -0.0872665, 0.0872665, -0.0872665]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Horse/Wagon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.174533, -0.174533, 0.174533, -0.174533, 0.174533, -0.174533, 0.174533]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Horse/Character:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.174533, -0.174533, 0.174533, -0.174533, 0.174533, -0.174533, 0.174533]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b6sf"]
+_data = {
+"animate_ui": SubResource("Animation_51vye")
+}
+
+[sub_resource type="Animation" id="Animation_o6526"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fr2vg"]
+_data = {
+"fade_in": SubResource("Animation_o6526")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_olfet"]
+shader = ExtResource("5_wsg2o")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgphv"]
+atlas = ExtResource("6_eu5gd")
+region = Rect2(17, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lmnq"]
+atlas = ExtResource("6_eu5gd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o8em"]
+atlas = ExtResource("7_jgojy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_07rg0"]
+shader = ExtResource("5_wsg2o")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ifubo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jt3vx"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahyf8"]
+texture = ExtResource("10_rx5ul")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjom6"]
+texture = ExtResource("10_rx5ul")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmaeu"]
+texture = ExtResource("10_fssts")
+
+[sub_resource type="Theme" id="Theme_6f1ua"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("8_6417k")
+Button/styles/disabled = SubResource("StyleBoxTexture_ifubo")
+Button/styles/focus = SubResource("StyleBoxTexture_jt3vx")
+Button/styles/hover = SubResource("StyleBoxTexture_ahyf8")
+Button/styles/normal = SubResource("StyleBoxTexture_xjom6")
+Button/styles/pressed = SubResource("StyleBoxTexture_kmaeu")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2bap4")
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="Overlay"]
+material = SubResource("ShaderMaterial_ngpam")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4b6sf")
+}
+
+[node name="TransitionPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Overlay/ColorRect")
+libraries = {
+"": SubResource("AnimationLibrary_fr2vg")
+}
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_right = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_8ue6j")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Title" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 0.15
+offset_left = -744.5
+offset_right = 744.5
+offset_bottom = 263.0
+grow_horizontal = 2
+texture = ExtResource("4_vsabo")
+
+[node name="Horse" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_olfet")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0872665
+texture = SubResource("AtlasTexture_qgphv")
+
+[node name="Wagon" type="TextureRect" parent="Horse"]
+material = SubResource("ShaderMaterial_olfet")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -80.0
+offset_right = -24.0
+offset_bottom = 80.0
+grow_vertical = 2
+rotation = 0.174533
+texture = SubResource("AtlasTexture_8lmnq")
+
+[node name="Character" type="TextureRect" parent="Horse"]
+material = SubResource("ShaderMaterial_olfet")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = 80.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.174533
+texture = SubResource("AtlasTexture_0o8em")
+
+[node name="PlayButton" type="Button" parent="."]
+material = SubResource("ShaderMaterial_07rg0")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 240.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_6f1ua")
+theme_override_font_sizes/font_size = 100
+text = "Play"
+
+[connection signal="button_up" from="PlayButton" to="." method="_on_play_button_button_up"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bopg8mr13eey7"]
+
+[ext_resource type="Script" path="res://scripts/enemy_spawner.cs" id="1_v1cmk"]
+
+[node name="EnemySpawner" type="Node2D"]
+rotation = 0.0280869
+script = ExtResource("1_v1cmk")
+
+[node name="TimeToSpawn" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="TimeToSpawn" to="." method="_on_time_to_spawn_timeout"]

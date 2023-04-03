@@ -1,18 +1,23 @@
 using Godot;
-using System;
 
 public partial class main_menu : Control
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var anim2 = GetNode<AnimationPlayer>("AnimationPlayer2");
-		anim2.Play("fade");
+		var trans = GetNode<AnimationPlayer>("TransitionPlayer");
+		trans.Play("fade_in");
 		var anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("animate_ui");
 	}
-	private void _on_texture_button_button_up()
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
 	{
-		GetTree().ChangeSceneToFile("res://scenes/worlds/game.tscn");
+	}
+
+	private void _on_play_button_button_up()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/level_one/level_one.tscn");
 	}
 }

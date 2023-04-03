@@ -1,0 +1,142 @@
+[gd_scene load_steps=16 format=3 uid="uid://04dhgslv3hh8"]
+
+[ext_resource type="Texture2D" uid="uid://b3ckkoh1f4y1v" path="res://assets/sprites/vehical_chars.png" id="1_afbax"]
+[ext_resource type="Shader" path="res://shaders/vector_sprite_upscaler.gdshader" id="1_tkdoy"]
+[ext_resource type="Script" path="res://scripts/cavalcade.cs" id="2_v8irs"]
+[ext_resource type="Shader" path="res://shaders/hurt.gdshader" id="3_xdlxm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_386dq"]
+shader = ExtResource("1_tkdoy")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="Animation" id="Animation_ai826"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Horse:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Horse/Wagon:use_parent_material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rh1fx"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Horse:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Horse/Wagon:use_parent_material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7e3h2"]
+_data = {
+"RESET": SubResource("Animation_ai826"),
+"hit": SubResource("Animation_rh1fx")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqwec"]
+shader = ExtResource("3_xdlxm")
+shader_parameter/active = true
+shader_parameter/tint = Color(1, 0.196078, 0.207843, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kh23j"]
+atlas = ExtResource("1_afbax")
+region = Rect2(17, 0, 16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ersh0"]
+shader = ExtResource("3_xdlxm")
+shader_parameter/active = true
+shader_parameter/tint = Color(1, 0.211765, 0.219608, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g32ao"]
+atlas = ExtResource("1_afbax")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uehoc"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5aa7"]
+size = Vector2(16, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4cb23"]
+size = Vector2(35, 11)
+
+[node name="Cavalcade" type="StaticBody2D"]
+material = SubResource("ShaderMaterial_386dq")
+collision_layer = 3
+script = ExtResource("2_v8irs")
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7e3h2")
+}
+
+[node name="Horse" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jqwec")
+use_parent_material = true
+texture = SubResource("AtlasTexture_kh23j")
+
+[node name="Wagon" type="Sprite2D" parent="Horse"]
+material = SubResource("ShaderMaterial_ersh0")
+use_parent_material = true
+position = Vector2(-17, 0)
+texture = SubResource("AtlasTexture_g32ao")
+
+[node name="HorseCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_uehoc")
+
+[node name="WagonCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-17, 3.5)
+shape = SubResource("RectangleShape2D_h5aa7")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="HitBoxCollider" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-8.5, 3.5)
+shape = SubResource("RectangleShape2D_4cb23")
+
+[node name="DPS" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_exited" from="HitBox" to="." method="_on_hit_box_area_exited"]
+[connection signal="timeout" from="DPS" to="." method="_on_dps_timeout"]
