@@ -4,5 +4,3 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_5vlg5")
-_gameScene = "res://scenes/ui/splash_screen.tscn"
-_editorScene = "res://scenes/level_one/level_one.tscn"
