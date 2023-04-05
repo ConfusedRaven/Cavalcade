@@ -18,4 +18,15 @@ public partial class end_screen : Control
 			GetNode<Label>("WinOrLose").AddThemeColorOverride("font_color", Colors.Yellow);
 		}
 	}
+
+	private void _on_play_again_button_button_up()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/level_one/level_one.tscn");
+	}
+	
+	private void _on_quit_button_button_up()
+	{
+		GetTree().Quit();
+	}
+
 }

@@ -2,9 +2,12 @@ using Godot;
 
 public partial class enemy : CharacterBody2D
 {
+	[Signal] 
+	public delegate void DeathEventHandler();
+	
 	[Export] private string _skinOne;
 	[Export] private string _skinTwo;
-	[Export] public int Speed { get; set; } = 16;
+	[Export] private int _speed = 16;
 	[Export] public static int Damage = 1;
 	[Export] private string _cavalcadePos;
 	[Export] private string _playerPos;
@@ -41,7 +44,7 @@ public partial class enemy : CharacterBody2D
 			GetNode<CollisionShape2D>("EnemyCollider").Disabled = true;
 			GetNode<CollisionShape2D>("HurtBox/HurtBoxCollider").Disabled = true;
 			GetNode<CollisionShape2D>("HitBox/HitBoxCollider").Disabled = true;
-			level_one.EnemyCount = --level_one.EnemyCount +0.7;
+			EmitSignal(SignalName.Death);
 		}
 	}
 
@@ -51,13 +54,13 @@ public partial class enemy : CharacterBody2D
 		switch (_playerDetected)
 		{
 			case true:
-				Velocity = GlobalPosition.DirectionTo(GetNode<CharacterBody2D>(_playerPos).GlobalPosition) * Speed;
+				Velocity = GlobalPosition.DirectionTo(GetNode<CharacterBody2D>(_playerPos).GlobalPosition) * _speed;
 				LookAt(GetNode<CharacterBody2D>(_playerPos).GlobalPosition);
 				anim.Play("walk");
 				MoveAndSlide();
 				break;
 			case false:
-				Velocity = GlobalPosition.DirectionTo(GetNode<StaticBody2D>(_cavalcadePos).Position) * Speed;
+				Velocity = GlobalPosition.DirectionTo(GetNode<StaticBody2D>(_cavalcadePos).Position) * _speed;
 				LookAt(GetNode<StaticBody2D>(_cavalcadePos).GlobalPosition);
 				anim.Play("walk");
 				MoveAndSlide();

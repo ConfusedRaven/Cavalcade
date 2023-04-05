@@ -1,7 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://s17hlfu1qck3"]
+[gd_scene load_steps=14 format=3 uid="uid://s17hlfu1qck3"]
 
 [ext_resource type="Script" path="res://scripts/end_screen.cs" id="1_flstl"]
 [ext_resource type="FontFile" uid="uid://1kouqr7cxdkt" path="res://assets/fonts/Kenney Pixel Square.ttf" id="2_sq560"]
+[ext_resource type="Shader" path="res://shaders/vector_sprite_upscaler.gdshader" id="3_68x1a"]
+[ext_resource type="FontFile" uid="uid://crgladd0r0l55" path="res://assets/fonts/Kenney Future.ttf" id="4_rkb6e"]
+[ext_resource type="Texture2D" uid="uid://ddd13qyuqyl5l" path="res://assets/ui/kenny_ui/individual/buttonLong_brown.png" id="5_anegb"]
+[ext_resource type="Texture2D" uid="uid://r0ta2xgukf1q" path="res://assets/ui/kenny_ui/individual/buttonLong_brown_pressed.png" id="6_cxm16"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gysfe"]
+shader = ExtResource("3_68x1a")
+shader_parameter/THRESHOLD = 0.1
+shader_parameter/AA_SCALE = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ifubo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jt3vx"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahyf8"]
+texture = ExtResource("5_anegb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjom6"]
+texture = ExtResource("5_anegb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmaeu"]
+texture = ExtResource("6_cxm16")
+
+[sub_resource type="Theme" id="Theme_wb6dm"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("4_rkb6e")
+Button/styles/disabled = SubResource("StyleBoxTexture_ifubo")
+Button/styles/focus = SubResource("StyleBoxTexture_jt3vx")
+Button/styles/hover = SubResource("StyleBoxTexture_ahyf8")
+Button/styles/normal = SubResource("StyleBoxTexture_xjom6")
+Button/styles/pressed = SubResource("StyleBoxTexture_kmaeu")
 
 [node name="EndScreen" type="Control"]
 layout_mode = 3
@@ -41,3 +87,42 @@ theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_sq560")
 theme_override_font_sizes/font_size = 144
 text = "YOU LOST"
+
+[node name="QuitButton" type="Button" parent="."]
+material = SubResource("ShaderMaterial_gysfe")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = 195.0
+offset_top = -278.0
+offset_right = 675.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_wb6dm")
+theme_override_font_sizes/font_size = 100
+text = "Quit"
+
+[node name="PlayAgainButton" type="Button" parent="."]
+material = SubResource("ShaderMaterial_gysfe")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -702.0
+offset_top = -279.0
+offset_right = 134.0
+offset_bottom = -119.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_wb6dm")
+theme_override_font_sizes/font_size = 100
+text = "Play Again"
+
+[connection signal="button_up" from="QuitButton" to="." method="_on_quit_button_button_up"]
+[connection signal="button_up" from="PlayAgainButton" to="." method="_on_play_again_button_button_up"]

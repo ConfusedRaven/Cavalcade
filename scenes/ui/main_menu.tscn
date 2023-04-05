@@ -129,17 +129,17 @@ shader = ExtResource("5_wsg2o")
 shader_parameter/THRESHOLD = 0.1
 shader_parameter/AA_SCALE = 2.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ifubo"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fectg"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jt3vx"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25xsu"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahyf8"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5il6n"]
 texture = ExtResource("10_rx5ul")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjom6"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2dkuk"]
 texture = ExtResource("10_rx5ul")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmaeu"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6y260"]
 texture = ExtResource("10_fssts")
 
 [sub_resource type="Theme" id="Theme_6f1ua"]
@@ -160,11 +160,11 @@ Button/constants/h_separation = 2
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 16
 Button/fonts/font = ExtResource("8_6417k")
-Button/styles/disabled = SubResource("StyleBoxTexture_ifubo")
-Button/styles/focus = SubResource("StyleBoxTexture_jt3vx")
-Button/styles/hover = SubResource("StyleBoxTexture_ahyf8")
-Button/styles/normal = SubResource("StyleBoxTexture_xjom6")
-Button/styles/pressed = SubResource("StyleBoxTexture_kmaeu")
+Button/styles/disabled = SubResource("StyleBoxTexture_fectg")
+Button/styles/focus = SubResource("StyleBoxTexture_25xsu")
+Button/styles/hover = SubResource("StyleBoxTexture_5il6n")
+Button/styles/normal = SubResource("StyleBoxTexture_2dkuk")
+Button/styles/pressed = SubResource("StyleBoxTexture_6y260")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

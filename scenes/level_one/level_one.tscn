@@ -11331,6 +11331,7 @@ region = Rect2(0, 237, 190, 45)
 
 [node name="LevelOne" type="Node2D"]
 script = ExtResource("1_n1mnr")
+_enemyCount = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Background/ColorRect")
@@ -11454,14 +11455,17 @@ position = Vector2(16, 0)
 [node name="SpawnerLeft" parent="." instance=ExtResource("9_spwjh")]
 position = Vector2(375, 38)
 Enemy = ExtResource("9_3i4tj")
+metadata/Name = "SpawnerLeft"
 
 [node name="SpawnerRight" parent="." instance=ExtResource("9_spwjh")]
 position = Vector2(471, 38)
 Enemy = ExtResource("9_3i4tj")
+metadata/Name = "SpawnerRight"
 
 [node name="SpawnerBottom" parent="." instance=ExtResource("9_spwjh")]
 position = Vector2(425, 105)
 Enemy = ExtResource("9_3i4tj")
+metadata/Name = "SpawnerBottom"
 
 [editable path="Cavalcade"]
 [editable path="SpawnerLeft"]
