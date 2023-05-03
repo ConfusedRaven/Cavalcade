@@ -1,4 +1,5 @@
-using Godot;
+global using Godot;
+global using System;
 
 public partial class main : Node
 {
