@@ -1,3 +1,5 @@
+namespace Cavalcade;
+
 public partial class level_one : Node2D
 {
 	// Variables

@@ -1,3 +1,5 @@
+namespace Cavalcade;
+
 public partial class cavalcade : StaticBody2D
 {
 	[Export] public static int Health = 21;

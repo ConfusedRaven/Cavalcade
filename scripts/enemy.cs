@@ -1,3 +1,5 @@
+namespace Cavalcade;
+
 public partial class enemy : CharacterBody2D
 {
 	[Signal] 
