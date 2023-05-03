@@ -35,7 +35,6 @@ public partial class enemy : CharacterBody2D
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (_health <= 0)
@@ -88,7 +87,7 @@ public partial class enemy : CharacterBody2D
 	{
 		if (hitBox != GetNode<Area2D>("../../Cavalcade/Player/PlayerWeapon")) return;
 		var eff = GetNode<AnimationPlayer>("EffectPlayer");
-		_health = _health - player_weapon.Damage;
+		_health -= player_weapon.Damage;
 		eff.Play("hit");
 		await ToSignal(eff, "animation_finished");
 	}

@@ -36,7 +36,7 @@ public partial class cavalcade : StaticBody2D
 	{
 		if (_doDamage != 1) return;
 		var eff = GetNode<AnimationPlayer>("EffectPlayer");
-		Health = Health - enemy.Damage;
+		Health -= enemy.Damage;
 		eff.Play("hit");
 		await ToSignal(eff, "animation_finished");
 	}

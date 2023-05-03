@@ -54,7 +54,6 @@ public partial class level_one : Node2D
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override async void _Process(double delta)
 	{
 		// Set health bars values to health variable
@@ -64,7 +63,7 @@ public partial class level_one : Node2D
 		foreach (var node in _spawn)
 		{
 			await ToSignal(GetNode<CharacterBody2D>(node+"/MouseEnemy"), enemy.SignalName.Death);
-			_enemyCount = _enemyCount-1;
+			_enemyCount--;
 		}
 		if (_enemyCount <= 0)
 		{
