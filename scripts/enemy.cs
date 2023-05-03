@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class enemy : CharacterBody2D
 {
 	[Signal] 

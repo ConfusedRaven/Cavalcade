@@ -1,7 +1,3 @@
-using System.Threading;
-using Godot;
-using Timer = Godot.Timer;
-
 public partial class cavalcade : StaticBody2D
 {
 	[Export] public static int Health = 21;

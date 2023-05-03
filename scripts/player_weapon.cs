@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class player_weapon : Area2D
 {
 	[Export] private string _activeWeapon;

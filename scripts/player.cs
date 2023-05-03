@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class player : CharacterBody2D
 {
 	[Export] public int Speed = 16;

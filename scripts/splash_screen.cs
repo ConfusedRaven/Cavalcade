@@ -1,6 +1,3 @@
-using Godot;
-using System;
-
 public partial class splash_screen : Control
 {
 	// Called when the node enters the scene tree for the first time.

@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class enemy_spawner : Node2D
 {
 	[Export] public PackedScene Enemy;

@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class end_screen : Control
 {
 	[Export] public static int Win = 0;

@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class main_menu : Control
 {
 	// Called when the node enters the scene tree for the first time.
