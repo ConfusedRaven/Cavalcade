@@ -1,9 +1,11 @@
-using Godot;
+global using Godot;
+global using System;
 
 public partial class main : Node
 {
-	[Export] private string _gameScene = "res://scenes/ui/splash_screen.tscn";
-	[Export] private string _editorScene = "res://scenes/ui/splash_screen.tscn";
+namespace Cavalcade;
+
+[Export] private string _editorScene = "res://scenes/ui/splash_screen.tscn";
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

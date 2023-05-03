@@ -1,4 +1,4 @@
-using Godot;
+namespace Cavalcade;
 
 public partial class player : CharacterBody2D
 {
@@ -55,7 +55,7 @@ public partial class player : CharacterBody2D
 	{
 		if (_doDamage != 1) return;
 		var eff = GetNode<AnimationPlayer>("EffectPlayer");
-		Health = Health - enemy.Damage;
+		Health -= enemy.Damage;
 		eff.Play("hit");
 		await ToSignal(eff, "animation_finished");
 	}
